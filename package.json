@@ -1,0 +1,22 @@
+{
+  "name": "eduaxis-tutor-centre-independent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Independent EduAxis Tutor Centre website, PWA and secure parent portal starter",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "create-admin": "node scripts/create-admin.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "update": "^0.7.4"
+  },
+  "allowScripts": {
+    "update@0.7.4": true
+  }
+}

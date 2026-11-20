@@ -1,0 +1,20 @@
+EDUAXIS — QUICK START (WINDOWS)
+
+1. Install Node.js 22 LTS or newer.
+2. Extract this ZIP to C:\EduAxis (or another normal folder).
+3. In File Explorer, copy .env.example and rename the copy to .env.
+4. Open .env in Notepad. Set:
+   SESSION_SECRET = a unique random string at least 40 characters long
+   ADMIN_EMAIL = the centre administrator email address
+   ADMIN_PASSWORD = a unique password at least 14 characters long
+5. Save and close Notepad.
+6. Double-click CREATE-ADMIN-WINDOWS.bat once.
+7. Double-click START-WINDOWS.bat.
+8. Open http://localhost:8080 in Chrome or Edge.
+9. Sign in from Parent Portal with the ADMIN_EMAIL and ADMIN_PASSWORD values.
+
+Keep the data folder. It stores the database. Back it up regularly.
+Do not upload .env or the database file to a public website.
+
+For production hosting, HTTPS, backups, legal review, original logo/photo replacement,
+and payment setup, follow README.md.
