@@ -8,7 +8,8 @@ const envFile=await import('node:fs/promises').then(m=>m.readFile(new URL('../.e
 for(const line of envFile.split(/\r?\n/)){const m=line.match(/^\s*([A-Z0-9_]+)=(.*)\s*$/);if(m&&!process.env[m[1]])process.env[m[1]]=m[2].replace(/^['"]|['"]$/g,'');}
 const email=(process.env.ADMIN_EMAIL||'').trim().toLowerCase();const password=process.env.ADMIN_PASSWORD||'';
 if(!email||!email.includes('@')||password.length<14){console.error('Set ADMIN_EMAIL and ADMIN_PASSWORD (at least 14 characters) in .env first.');process.exit(1);}
-const dbPath=path.resolve(process.env.DATABASE_PATH||'./data/eduaxis.sqlite');await mkdir(path.dirname(dbPath),{recursive:true});
+const defaultDataPath = process.env.NETLIFY ? '/tmp/eduaxis/eduaxis.sqlite' : './data/eduaxis.sqlite';
+const dbPath=path.resolve(process.env.DATABASE_PATH||defaultDataPath);await mkdir(path.dirname(dbPath),{recursive:true});
 const db=new DatabaseSync(dbPath);
 db.exec(`CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,email TEXT NOT NULL UNIQUE,password_hash TEXT NOT NULL,role TEXT NOT NULL CHECK(role IN ('parent','admin')),full_name TEXT NOT NULL,phone TEXT,created_at TEXT NOT NULL);`);
 const salt=randomBytes(16);const key=Buffer.from(await scrypt(password,salt,64));const hash=`${salt.toString('hex')}:${key.toString('hex')}`;
