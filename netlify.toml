@@ -1,0 +1,10 @@
+[build]
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[dev]
+  command = "node server.js"
+  port = 8889
+

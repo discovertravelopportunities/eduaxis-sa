@@ -22,7 +22,7 @@ This is an independent, self-hostable website/PWA and Node.js application. It do
 
 ## 2. Requirements
 
-- Node.js **22.13 or later** (Node 22 is required for the built-in `node:sqlite` module used by this package).
+- Node.js **24 or later** (the Netlify Server runtime uses Node 24 and the built-in `node:sqlite` module).
 - Windows, Linux or macOS.
 - No npm packages are required. The application uses Node.js built-in modules only.
 
@@ -103,7 +103,7 @@ Upload the project folder to a Node.js 22+ host, set the environment variables i
 | Data | Location |
 |---|---|
 | Website files | `public/` |
-| SQLite database | `data/eduaxis.sqlite` (created at runtime) |
+| SQLite database | `data/eduaxis.sqlite` locally/Docker; `/tmp/eduaxis/eduaxis.sqlite` on Netlify |
 | Future private uploads | `uploads/` |
 | Environment secrets | `.env` (never publish or commit) |
 
@@ -118,6 +118,7 @@ The database includes records for parent users, sessions, learners, homework, pr
 - Parent portal queries scope learner records by the authenticated parent user ID.
 - Public forms intentionally do not accept ID documents, medical records or file uploads.
 - This starter does not yet implement email notifications, multi-factor authentication, a full audit log, file malware scanning, formal POPIA operator agreements, or a tested disaster-recovery process. Those are required work items before sensitive/high-volume production use.
+- Netlify Server storage is ephemeral. The Netlify SQLite path is writable and prevents deployment errors, but its contents can be lost during scale-to-zero or replacement. Use a managed persistent database before relying on parent accounts or submitted forms in production.
 - The basic rate limiter is in-memory and per application process. Use a shared rate-limiting service if you scale to multiple instances. If deployed behind a trusted reverse proxy that overwrites `X-Forwarded-For`, set `TRUST_PROXY=1`; otherwise leave it disabled to prevent spoofed client IP headers.
 
 ## 8. Payment integration
